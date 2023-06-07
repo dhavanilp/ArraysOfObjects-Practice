@@ -77,3 +77,13 @@ function startLetterSearch() {
   // Display Name of all Colors that Match a User Provided Starting Letter. Also Output a Count of Colors Found.
   outputEl.innerHTML = "<h3>Start Letter Search</h3>";
 }
+
+function saveColors() {
+  // Save colors to Local Storage
+  localStorage.setItem("colorData", JSON.stringify(colorData));
+}
+function loadColors() {
+  // Load Colors from Local Storage
+  let colorStr = localStorage.getItem("colorData");
+  return JSON.parse(colorStr) ?? [];
+}
