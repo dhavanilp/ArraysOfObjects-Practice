@@ -4,7 +4,7 @@
 let outputEl = document.getElementById("output");
 
 // Load Color Data
-let colorData;
+let colorData = loadColors();
 
 fetch("color-data.json")
   .then((rawData) => rawData.json())
