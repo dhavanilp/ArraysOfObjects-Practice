@@ -5,33 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Web Colors</title>
+    <title>Login / Signup</title>
 
     <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="loginStyle.css" />
 
-    <script defer src="main.js"></script>
+    <script defer src="js/gui.js"></script>
+    <script defer src="js/main.js"></script>
   </head>
 
   <body>
-    <main>
-      <h1>Web Colors</h1>
+    <!-- SIGN UP DIV -->
+    <div id="sign-up-div">
+      <img src="img/orange-logo.png" alt="Your Posts Logo" width="150px" />
       <hr />
 
+      <h1>Become a Member:</h1>
+      <p>Please fill out this form to become a member.</p>
+
+      <p class="input-label">Username: <span>*</span></p>
+      <input id="signUpUser" type="text" />
+
+      <p class="input-label">Password: <span>*</span></p>
+      <input id="signUpPassword" type="password" />
+
+      <p class="input-label">Confirm Password: <span>*</span></p>
+      <input id="confirmSignUp" type="password" />
+
       <p>
-        <select id="menu-select">
-          <option value="all-colors">Display All Colors...</option>
-          <option value="bright-colors">Bright Colors...</option>
-          <option value="red-pink-families">
-            Colors in Red or Pink families...
-          </option>
-          <option value="family-search">Family Search...</option>
-          <option value="start-letter-search">Start Letter Search...</option>
-        </select>
-        <button id="go-btn">Go</button>
+        <button id="sign-up-btn">Sign Up</button>
       </p>
 
-      <div id="output"></div>
-    </main>
+      <p>
+        Already a Member?
+        <span id="sign-in-link" class="fake-link">Sign In Here.</span>
+      </p>
+
+      <p class="required">* required field.</p>
+    </div>
+
+    <!-- SIGN IN DIV -->
+    <div id="sign-in-div">
+      <img src="img/orange-logo.png" alt="Your Posts Logo" width="150px" />
+      <hr />
+
+      <h1>Welcome Back</h1>
+      <p>Please fill out this form to sign in.</p>
+
+      <p class="input-label">Username: <span>*</span></p>
+      <input id="signInUser" type="text" />
+
+      <p class="input-label">Password: <span>*</span></p>
+      <input id="signInPassword" type="password" />
+
+      <p>
+        <button id="sign-in-btn">Sign In</button>
+      </p>
+
+      <p>
+        Not a Member?
+        <span id="sign-up-link" class="fake-link">Sign Up Here.</span>
+      </p>
+
+      <p class="required">* required field.</p>
+    </div>
   </body>
 </html>

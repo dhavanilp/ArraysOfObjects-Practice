@@ -23,3 +23,11 @@ button:hover {
   background-color: #555;
   cursor: pointer;
 }
+
+.array-objects {
+  border: 1px solid black;
+}
+
+.innerEls {
+  padding: 2px;
+}

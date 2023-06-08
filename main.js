@@ -4,7 +4,8 @@
 let outputEl = document.getElementById("output");
 
 // Load Color Data
-let colorData = loadColors();
+let colorData;
+let userData = loadUsers();
 
 fetch("color-data.json")
   .then((rawData) => rawData.json())
@@ -36,7 +37,12 @@ function goBtnClicked() {
 function allColors() {
   outputEl.innerHTML = "";
   for (let i = 0; i < colorData.length; i++) {
-    outputEl.innerHTML += `<h3> Name: ${colorData[i].name}. Family: ${colorData[i].family}</h3>`;
+    outputEl.innerHTML += `<div class = "array-objects">
+
+    <p class = "innerEls"> Name: ${colorData[i].name}</p>
+     <p class = "innerEls">Family: ${colorData[i].family} </p> 
+     <p class = "innerEls">Brighness: ${colorData[i].brightness}</p>
+     </div>`;
   }
   // Display Name and Family of All Colors
 }
@@ -45,7 +51,8 @@ function brightColors() {
   outputEl.innerHTML = "";
   for (let i = 0; i < colorData.length; i++) {
     if (colorData[i].brightness > 200) {
-      outputEl.innerHTML += `<h3> Name: ${colorData[i].name}. Family: ${colorData[i].family}</h3>`;
+      outputEl.innerHTML += `<div class = "array-objects"> <p> Name: ${colorData[i].name}</p>
+      <p>Family: ${colorData[i].family} </p> </div>`;
     }
   }
   // Display Name and Brightness of All Colors with a Brightness of 200 and Higher
@@ -58,7 +65,7 @@ function redPinkFamilies() {
       count++;
     }
   }
-  outputEl.innerHTML = `<h3>The number of colors in the Pink/Red families is : ${count}</h3>`;
+  outputEl.innerHTML = `<div class = "array-objects">The number of colors in the Pink/Red families is : ${count}</div>`;
   // Count Colors in Red/Pink Families
 }
 
@@ -67,7 +74,7 @@ function familySearch() {
   let userFamily = prompt("input the family you want to search by");
   for (let i = 0; i < colorData.length; i++) {
     if (colorData[i].family === userFamily) {
-      outputEl.innerHTML += `<h3> Name: ${colorData[i].name}. Family: ${colorData[i].family}</h3>`;
+      outputEl.innerHTML += `<div class = "array-objects"> Name: ${colorData[i].name}. Family: ${colorData[i].family}</div>`;
     }
   }
   // Display Name and Family of all Colors that Match a User Provided Family Name. Also Output a Count of Colors Found.
@@ -75,15 +82,15 @@ function familySearch() {
 
 function startLetterSearch() {
   // Display Name of all Colors that Match a User Provided Starting Letter. Also Output a Count of Colors Found.
-  outputEl.innerHTML = "<h3>Start Letter Search</h3>";
+  outputEl.innerHTML = `<div class = "array-objects">Start Letter Search</div>`;
 }
 
-function saveColors() {
+function saveUsers() {
   // Save colors to Local Storage
-  localStorage.setItem("colorData", JSON.stringify(colorData));
+  localStorage.setItem("userData", JSON.stringify(userData));
 }
-function loadColors() {
+function loadUsers() {
   // Load Colors from Local Storage
-  let colorStr = localStorage.getItem("colorData");
-  return JSON.parse(colorStr) ?? [];
+  let userStr = localStorage.getItem("userData");
+  return JSON.parse(userStr) ?? [];
 }
