@@ -100,3 +100,5 @@ function loadUsers() {
   let userStr = localStorage.getItem("userData");
   return JSON.parse(userStr) ?? [];
 }
+
+function makeHTMLElement() {}
