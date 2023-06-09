@@ -22,6 +22,8 @@ function goBtnClicked() {
   // Process Menu Selection
   if (selection === "all-colors") {
     allColors();
+  } else if (selection === "fav-colors") {
+    favoriteColors();
   } else if (selection === "bright-colors") {
     brightColors();
   } else if (selection === "red-pink-families") {
@@ -45,6 +47,10 @@ function allColors() {
      </div>`;
   }
   // Display Name and Family of All Colors
+}
+
+function favoriteColors() {
+  outputEl.innerHTML = "";
 }
 
 function brightColors() {
