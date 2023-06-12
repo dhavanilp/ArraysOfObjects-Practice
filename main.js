@@ -39,12 +39,7 @@ function goBtnClicked() {
 function allColors() {
   outputEl.innerHTML = "";
   for (let i = 0; i < colorData.length; i++) {
-    outputEl.innerHTML += `<div class = "array-objects">
-
-    <p class = "innerEls"> Name: ${colorData[i].name}</p>
-     <p class = "innerEls">Family: ${colorData[i].family} </p> 
-     <p class = "innerEls">Brighness: ${colorData[i].brightness}</p>
-     </div>`;
+    outputEl.appendChild(makeHTMLElement(i));
   }
   // Display Name and Family of All Colors
 }
@@ -101,4 +96,32 @@ function loadUsers() {
   return JSON.parse(userStr) ?? [];
 }
 
-function makeHTMLElement() {}
+function makeHTMLElement(index) {
+  // Favourite button Element
+  let buttonEl = document.createElement("button");
+  buttonEl.innerHTML = "Favourite";
+  buttonEl.dataset.index = index;
+
+  buttonEl.addEventListener("click", favouriteButtonHandler);
+
+  // Color display Text
+  let colorSpanEl = document.createElement("span");
+  colorSpanEl.innerHTML = `<div class = "array-objects">
+
+  <p class = "innerEls"> Name: ${colorData[index].name}</p>
+   <p class = "innerEls">Family: ${colorData[index].family} </p> 
+   <p class = "innerEls">Brighness: ${colorData[index].brightness}</p>
+   </div>`;
+
+  // Create Div Element with Color Names and favourite Button
+  let divEl = document.createElement("div");
+  divEl.appendChild(colorSpanEl);
+  divEl.appendChild(buttonEl);
+  return divEl;
+}
+
+function favouriteButtonHandler(e) {
+  let index = +e.target.dataset.index;
+  let color = colorData[index];
+  color.favourite = !color.favourite;
+}
