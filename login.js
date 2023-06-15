@@ -90,7 +90,7 @@ function newUser(userName, userPassword) {
   return {
     username: userName,
     password: userPassword,
-    favorites: [],
+    favourites: [],
   };
 }
 

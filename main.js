@@ -115,7 +115,11 @@ function favouriteButtonHandler(e) {
   let index = +e.target.dataset.index;
   let color = colorData[index];
   console.log(index);
-  console.log(color);
+
+  if (checkFavorites(color) === 1) {
+    console.log(userData[index]);
+    saveUserData();
+  }
 }
 
 function saveUserData() {
@@ -123,14 +127,17 @@ function saveUserData() {
   localStorage.setItem("userData", JSON.stringify(userData));
 }
 
-function loadUserData() {
-  // Load userData from local Storage
-  let userStr = localStorage.getItem("userData");
-  return JSON.parse(userStr) ?? [];
-}
-
 function loadUserArray() {
   // Load userData from local Storage
   let userStr = localStorage.getItem("userArray");
-  return JSON.parse(userStr) ?? [];
+  return JSON.parse(userStr);
+}
+
+function checkFavorites(userColor) {
+  for (let i = 0; i <= userData.length; i++) {
+    if (userData[i].favorites.includes(userColor)) {
+      return -1;
+    }
+    return 1;
+  }
 }
