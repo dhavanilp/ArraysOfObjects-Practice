@@ -5,7 +5,7 @@ let outputEl = document.getElementById("output");
 
 // Load Color Data
 let colorData;
-let userData = loadUsers();
+let userData = loadUserArray();
 
 fetch("color-data.json")
   .then((rawData) => rawData.json())
@@ -86,16 +86,6 @@ function startLetterSearch() {
   outputEl.innerHTML = `<div class = "array-objects">Start Letter Search</div>`;
 }
 
-function saveUsers() {
-  // Save colors to Local Storage
-  localStorage.setItem("userData", JSON.stringify(userData));
-}
-function loadUsers() {
-  // Load Colors from Local Storage
-  let userStr = localStorage.getItem("userData");
-  return JSON.parse(userStr) ?? [];
-}
-
 function makeHTMLElement(index) {
   // Favourite button Element
   let buttonEl = document.createElement("button");
@@ -121,7 +111,26 @@ function makeHTMLElement(index) {
 }
 
 function favouriteButtonHandler(e) {
+  // Get the index of the Color in the Array where the favourite button was clicked
   let index = +e.target.dataset.index;
   let color = colorData[index];
-  color.favourite = !color.favourite;
+  console.log(index);
+  console.log(color);
+}
+
+function saveUserData() {
+  // Save users to Local Storage
+  localStorage.setItem("userData", JSON.stringify(userData));
+}
+
+function loadUserData() {
+  // Load userData from local Storage
+  let userStr = localStorage.getItem("userData");
+  return JSON.parse(userStr) ?? [];
+}
+
+function loadUserArray() {
+  // Load userData from local Storage
+  let userStr = localStorage.getItem("userArray");
+  return JSON.parse(userStr) ?? [];
 }
