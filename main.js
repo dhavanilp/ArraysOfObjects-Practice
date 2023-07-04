@@ -6,13 +6,15 @@ let outputEl = document.getElementById("output");
 // Load Color Data
 let colorData;
 let userData = loadUserArray();
-
 fetch("color-data.json")
   .then((rawData) => rawData.json())
   .then((data) => (colorData = data));
 
 // Event Listener on Go Button
 document.getElementById("go-btn").addEventListener("click", goBtnClicked);
+
+// Even Listener for back button to login page
+document.getElementById("back").addEventListener("click", backButtonClicked);
 
 // Process Go Button Click
 function goBtnClicked() {
@@ -117,9 +119,13 @@ function favouriteButtonHandler(e) {
   console.log(index);
 
   if (checkFavorites(color) === 1) {
-    console.log(userData[index]);
-    saveUserData();
+    for (let i = 0; i < userData.length; i++) {
+      if (userData[i].currentUser) {
+        userData[i].favourites.push(color);
+      }
+    }
   }
+  saveUserData();
 }
 
 function saveUserData() {
@@ -135,9 +141,17 @@ function loadUserArray() {
 
 function checkFavorites(userColor) {
   for (let i = 0; i <= userData.length; i++) {
-    if (userData[i].favorites.includes(userColor)) {
+    if (userData[i].favourites.includes(userColor)) {
       return -1;
     }
-    return 1;
   }
+  return 1;
+}
+
+function backButtonClicked() {
+  let current = localStorage.getItem("userData");
+  for (let i = 0; i < current.length; i++) {
+    current[i].currentUser = false;
+  }
+  saveUserData();
 }

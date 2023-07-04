@@ -74,6 +74,7 @@ function signInHandler() {
     alert("Wrong Password");
   } else if (signInPassword === userArray[userIndex].password) {
     document.getElementById("btn-link").href = "user.html";
+    userArray[userIndex].currentUser = true;
   }
 }
 
@@ -91,6 +92,7 @@ function newUser(userName, userPassword) {
     username: userName,
     password: userPassword,
     favourites: [],
+    currentUser: false,
   };
 }
 
