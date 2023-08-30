@@ -13,9 +13,6 @@ fetch("color-data.json")
 // Event Listener on Go Button
 document.getElementById("go-btn").addEventListener("click", goBtnClicked);
 
-// Even Listener for back button to login page
-document.getElementById("back").addEventListener("click", backButtonClicked);
-
 // Process Go Button Click
 function goBtnClicked() {
   // Get Menu Selection
@@ -47,7 +44,7 @@ function allColors() {
 }
 
 function favoriteColors() {
-  outputEl.innerHTML = "";
+  // Show Favourite colors for the current user
 }
 
 function brightColors() {
@@ -62,32 +59,18 @@ function brightColors() {
 }
 
 function redPinkFamilies() {
-  let count = 0;
-  for (let i = 0; i < colorData.length; i++) {
-    if (colorData[i].family === "Pink" || colorData[i].family === "Red") {
-      count++;
-    }
-  }
-  outputEl.innerHTML = `<div class = "array-objects">The number of colors in the Pink/Red families is : ${count}</div>`;
   // Count Colors in Red/Pink Families
 }
 
 function familySearch() {
-  outputEl.innerHTML = "";
-  let userFamily = prompt("input the family you want to search by");
-  for (let i = 0; i < colorData.length; i++) {
-    if (colorData[i].family === userFamily) {
-      outputEl.innerHTML += `<div class = "array-objects"> Name: ${colorData[i].name}. Family: ${colorData[i].family}</div>`;
-    }
-  }
   // Display Name and Family of all Colors that Match a User Provided Family Name. Also Output a Count of Colors Found.
 }
 
 function startLetterSearch() {
   // Display Name of all Colors that Match a User Provided Starting Letter. Also Output a Count of Colors Found.
-  outputEl.innerHTML = `<div class = "array-objects">Start Letter Search</div>`;
 }
 
+// MAKE A DIV ELEMENT WITH ADDITION PROPERTIES
 function makeHTMLElement(index) {
   // Favourite button Element
   let buttonEl = document.createElement("button");
@@ -112,22 +95,27 @@ function makeHTMLElement(index) {
   return divEl;
 }
 
-function favouriteButtonHandler(e) {
-  // Get the index of the Color in the Array where the favourite button was clicked
-  let index = +e.target.dataset.index;
-  let color = colorData[index];
-  console.log(index);
+// EVENT LISTENER FOR THE "BACK TO LOGIN" BUTTON
+document.getElementById("back").addEventListener("click", backButtonClicked);
 
-  if (checkFavorites(color) === 1) {
-    for (let i = 0; i < userData.length; i++) {
-      if (userData[i].currentUser) {
-        userData[i].favourites.push(color);
-      }
+function backButtonClicked() {
+  for (let i = 0; i < userData.length; i++) {
+    if (userData[i].currentUser) {
+      userData[i].currentUser = false;
     }
   }
   saveUserData();
 }
 
+function favouriteButtonHandler(e) {
+  // Get the index of the Color in the Array where the favourite button was clicked
+  let index = +e.target.dataset.index;
+  console.log(index);
+  appendFavourite(index);
+  saveUserData();
+}
+
+// LOCAL STORAGE FUNCTIONS TO LOAD AND SAVE USERS ARRAY
 function saveUserData() {
   // Save users to Local Storage
   localStorage.setItem("userData", JSON.stringify(userData));
@@ -139,19 +127,13 @@ function loadUserArray() {
   return JSON.parse(userStr);
 }
 
-function checkFavorites(userColor) {
-  for (let i = 0; i <= userData.length; i++) {
-    if (userData[i].favourites.includes(userColor)) {
-      return -1;
+function appendFavourite(index) {
+  // Add the favourited color to the user's Favorite array
+  for (let i = 0; i < userData.length; i++) {
+    if (userData[i].currentUser) {
+      userData[i].favourites.push(colorData[index]);
+      console.log(userData[i]);
     }
-  }
-  return 1;
-}
-
-function backButtonClicked() {
-  let current = localStorage.getItem("userData");
-  for (let i = 0; i < current.length; i++) {
-    current[i].currentUser = false;
   }
   saveUserData();
 }

@@ -28,7 +28,7 @@ function displaySignUp() {
 // HTML VARIABLES
 let signInBtn = document.getElementById("sign-in-btn");
 let signUpBtn = document.getElementById("sign-up-btn");
-let userArray = loadUsers();
+let userArray = loadUserData();
 
 // SIGN UP BTN CLICKED
 signUpBtn.addEventListener("click", signUpHandler);
@@ -47,8 +47,10 @@ function signUpHandler() {
     let userIndex = findUserIndex(signUpUser);
     if (userIndex === -1) {
       if (signUpPassword === signUpConfirm) {
+        console.log("yes");
         userArray.push(newUser(signUpUser, signUpConfirm));
         alert("User Added");
+        saveUserArray();
       } else {
         console.log("Confirm password doesn't match");
       }
@@ -56,7 +58,6 @@ function signUpHandler() {
       alert("Username already in use");
     }
   }
-  saveUsers();
 }
 
 // SIGN IN BTN CLICKED
@@ -67,7 +68,7 @@ function signInHandler() {
   let signInPassword = document.getElementById("signInPassword").value;
   let userIndex = findUserIndex(signInUser);
 
-  // Check User name and password, If all mathc, then allow sign in
+  // Check User name and password, If all match, then allow sign in
   if (userIndex === -1) {
     alert("Invalid Username");
   } else if (signInPassword !== userArray[userIndex].password) {
@@ -75,18 +76,21 @@ function signInHandler() {
   } else if (signInPassword === userArray[userIndex].password) {
     document.getElementById("btn-link").href = "user.html";
     userArray[userIndex].currentUser = true;
+    saveUserArray();
   }
 }
 
-function saveUsers() {
+function saveUserArray() {
   // Save users to Local Storage
   localStorage.setItem("userArray", JSON.stringify(userArray));
 }
-function loadUsers() {
+
+function loadUserData() {
   // Load users from local Storage
-  let userStr = localStorage.getItem("userArray");
+  let userStr = localStorage.getItem("userData");
   return JSON.parse(userStr) ?? [];
 }
+
 function newUser(userName, userPassword) {
   return {
     username: userName,
