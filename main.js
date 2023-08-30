@@ -130,10 +130,10 @@ function loadUserArray() {
 function appendFavourite(index) {
   // Add the favourited color to the user's Favorite array
   for (let i = 0; i < userData.length; i++) {
-    if (userData[i].currentUser) {
+    if (userData[i].currentUser === true) {
       userData[i].favourites.push(colorData[index]);
       console.log(userData[i]);
+      saveUserData();
     }
   }
-  saveUserData();
 }
