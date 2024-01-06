@@ -44,7 +44,13 @@ function allColors() {
 }
 
 function favoriteColors() {
-  // Show Favourite colors for the current user
+  outputEl.innerHTML = "";
+  let fav = userData[verifyCurrentUser()].favourites;
+  for (let i = 0; i < fav.length; i++) {
+    outputEl.appendChild(makeHTMLElement(i));
+    // Display Name and Family of Current User's Favorite Colors
+  }
+  console.log(fav.length);
 }
 
 function brightColors() {
@@ -133,7 +139,15 @@ function appendFavourite(index) {
     if (userData[i].currentUser === true) {
       userData[i].favourites.push(colorData[index]);
       console.log(userData[i]);
-      saveUserData();
+    }
+  }
+  saveUserData();
+}
+
+function verifyCurrentUser() {
+  for (let i = 0; i < userData.length; i++) {
+    if (userData[i].currentUser) {
+      return i;
     }
   }
 }
